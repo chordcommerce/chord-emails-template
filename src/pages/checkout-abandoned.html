@@ -1,15 +1,5 @@
 ---
-subject: Your Order Is Confirmed!
 ship_address:
-  full_name: John Doe
-  firstname: John
-  lastname: Doe
-  address1: 12345 Street Rd
-  address2: Unit 1
-  city: San Francisco
-  state: CA
-  zipcode: 12345
-bill_address:
   full_name: John Doe
   firstname: John
   lastname: Doe
@@ -53,7 +43,16 @@ line_items:
   <row>
     <columns>
       <spacer size="35"></spacer>
-      <h3 class="text-center">Your order is confirmed</h3>
+      {{#ship_address}}
+      <h3 class="text-center">
+        Hey {{ship_address.firstname}},
+      </h3>
+      {{/ship_address}}
+      <p class="subtitle text-center">We noticed you left something in your cart.</p>
+      <spacer size="15"></spacer>
+      <center>
+        <button class="button radius" href="{{& cart_url }}">Resume your order!</button>
+      </center>
     </columns>
   </row>
   <row>
@@ -61,70 +60,56 @@ line_items:
       <p><strong>Order Number:</strong> {{number}}</p>
       <spacer size="16"></spacer>
       {{#line_items}}
-        <table>
-          <tr>
-            <td class="img-block">
-              <img src="{{image}}" class="thumbnail">
-            </td>
-            <td>
-              <table class="order-details">
-                <tr>
-                  <td><strong>{{name}}</strong></td>
-                </tr>
-                {{#options_text}}
-                <tr>
-                  <td><em>{{options_text}}</em></td>
-                </tr>
-                {{/options_text}}
-                {{#is_bundle}}
-                  <tr>
-                    <td>
-                      {{#parts}}
-                        <div class="description">
-                          {{name}}
-                          {{#options_text}} 
-                            <br/> 
-                            <em>{{options_text}}</em>
-                          {{/options_text}}
-                        </div>
-                      {{/parts}}
-                    </td>
-                  </tr>
-                {{/is_bundle}}
-                {{#is_subscription}}
-                  <tr>
-                    <td>
-                      {{#subscription_details}}
-                        <div class="description">
-                          Auto-renew: {{interval}}
-                        </div>
-                      {{/subscription_details}}
-                    </td>
-                  </tr>
-                {{/is_subscription}}
-                {{#is_gift_card}}
-                  <tr>
-                    <td>
-                      {{#gift_cards_details}}
-                        <div class="description small-text margin-3">
-                          Value: {{amount}}, Recipient: {{recipient_email}}
-                        </div>
-                        <div class="description small-text margin-3">
-                          Delivery date: {{send_email_at}}
-                        </div>
-                      {{/gift_cards_details}}
-                    </td>
-                  </tr>
-                {{/is_gift_card}}
-                <tr>
-                  <td>Qty: {{quantity}}</td>
-                </tr>
-              </table>
-            </td>
-            <td class="text-right">{{price}}</td>
-          </tr>
-        </table>
-        <spacer size="16"></spacer>
+      <table>
+        <tr>
+          <td class="img-block">
+            <img src="{{image}}" class="thumbnail">
+          </td>
+          <td>
+            <table class="order-details">
+              <tr>
+                <td><strong>{{name}}</strong></td>
+              </tr>
+              {{#options_text}}
+              <tr>
+                <td><em>{{options_text}}</em></td>
+              </tr>
+              {{/options_text}}
+              {{#is_bundle}}
+              <tr>
+                <td>
+                  {{#parts}}
+                  <div class="description">
+                    {{name}}
+                    {{#options_text}}
+                    <br/>
+                    <em>{{options_text}}</em>
+                    {{/options_text}}
+                  </div>
+                  {{/parts}}
+                </td>
+              </tr>
+              {{/is_bundle}}
+              {{#is_subscription}}
+              <tr>
+                <td>
+                  {{#subscription_details}}
+                  <div class="description">
+                    Auto-renew: {{interval}}
+                  </div>
+                  {{/subscription_details}}
+                </td>
+              </tr>
+              {{/is_subscription}}
+              <tr>
+                <td>Qty: {{quantity}}</td>
+              </tr>
+            </table>
+          </td>
+          <td class="text-right">{{price}}</td>
+        </tr>
+      </table>
+      <spacer size="16"></spacer>
       {{/line_items}}
 
       <hr class='separator'>
@@ -144,18 +129,18 @@ line_items:
             <p>Tax</p>
           </columns>
           <columns class='order-summary-columns'>
-            <p class='text-right'>{{tax_total}}</p>
+            <p class='text-right'>(To be calculated)</p>
           </columns>
         </row>
         {{#promo_total}}
-          <row class='order-summary-row'>
-            <columns class='order-summary-columns'>
-              <p>Promotions</p>
-            </columns>
-            <columns class='order-summary-columns'>
-              <p class='text-right'>{{promo_total}}</p>
-            </columns>
-          </row>
+        <row class='order-summary-row'>
+          <columns class='order-summary-columns'>
+            <p>Promotions</p>
+          </columns>
+          <columns class='order-summary-columns'>
+            <p class='text-right'>{{promo_total}}</p>
+          </columns>
+        </row>
         {{/promo_total}}
         <row class='order-summary-row'>
           <columns class='order-summary-columns'>
@@ -184,49 +169,40 @@ line_items:
           </columns>
         </row>
       </container>
+
       <hr class='separator' />
+      <spacer size="15"></spacer>
+
       <container>
+        {{#ship_address}}
         <row>
           <columns class='shipping-columns'>
             <p><b>Shipping to:</b></p>
             <p>
-            {{ship_address.full_name}}<br/>
-            {{ship_address.address1}}<br/>
-            {{#ship_address.address2}}
+              {{ship_address.full_name}}<br/>
+              {{ship_address.address1}}<br/>
+              {{#ship_address.address2}}
               {{ship_address.address2}}<br/>
-            {{/ship_address.address2}}
-            {{ship_address.city}},
-            {{ship_address.state}}
-            {{ship_address.zipcode}}
+              {{/ship_address.address2}}
+              {{ship_address.city}},
+              {{ship_address.state}}
+              {{ship_address.zipcode}}
             </p>
           </columns>
+        </row>
+        {{/ship_address}}
+        <row>
           <columns class='shipping-columns'>
             <p><b>Shipping method</b></p>
             <p>{{shipping_method}}</p>
           </columns>
         </row>
-        <row>
-           <columns class='shipping-columns'>
-            <p><b>Billing to:</b></p>
-            <p>
-            {{bill_address.full_name}}<br/>
-            {{bill_address.address1}}<br/>
-            {{#bill_address.address2}}
-              {{bill_address.address2}}<br/>
-            {{/bill_address.address2}}
-            {{bill_address.city}},
-            {{bill_address.state}}
-            {{bill_address.zipcode}}
-            </p>
-          </columns>
-           <columns class='shipping-columns'>
-            <p><b>Payment Info</b></p>
-            {{#payment_information}}
-              <p>{{cc_type}} (••••••••••••{{cc_last_digits}})</p>
-            {{/payment_information}}
-          </columns>
-        </row>
       </container>
+      <spacer size="15"></spacer>
+      <center>
+        <button class="button radius" href="{{& cart_url }}">Resume your order!</button>
+      </center>
+      <spacer size="15"></spacer>
     </columns>
   </row>
 </container>

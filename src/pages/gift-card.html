@@ -1,0 +1,88 @@
+---
+recipient_email: john@doe.com
+image: https://placekitten.com/48/48
+item_name: Gift Card
+amount: $50
+gift_message: Thanks for everything! You're the best! -Jane
+---
+
+<wrapper class="header">
+  <row>
+    <columns>
+      <spacer size="26"></spacer>
+      <center>
+        <img class="logo" src="http://cdn.mcauto-images-production.sendgrid.net/11c240357b503463/ce908add-ba8e-4d5b-a89c-a7d3554b6116/382x85.png" alt="Mystery Tackle Box">
+      </center>
+      <spacer size="8"></spacer>
+    </columns>
+  </row>
+</wrapper>
+
+<container class="main">
+  <row>
+    <columns>
+      <spacer size="35"></spacer>
+      <h3 class="text-center">You have a gift!</h3>
+    </columns>
+  </row>
+  <row>
+    <columns>
+      <p><strong>To:</strong> {{recipient_email}}</p>
+      <spacer size="16"></spacer>
+      <table>
+        <tr>
+          <td class="img-block">
+            <img src="{{image}}" class="thumbnail">
+          </td>
+          <td>
+            <table class="order-details">
+              <tr>
+                <td><strong>{{item_name}}</strong></td>
+                <td>{{amount}}</td>
+              </tr>
+              <tr>
+                <td><em>{{gift_message}}</em></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+      <spacer size="16"></spacer>
+      <hr class='separator' />
+      <p>
+        To redeem, <a href="https://mysterytacklebox.com/">click here</a> to activate your gift card <strong>using the email address above.</strong> You will automatically recieve the gift card amount listed above as <strong>store credit.</strong> It's that easy. Enjoy!
+      </p>
+      <spacer size="15"></spacer>
+      <hr class='separator' />
+    </columns>
+  </row>
+</container>
+
+<wrapper class="footer">
+  <row>
+    <columns>
+      <spacer size="32"></spacer>
+      <p class="text-center">
+        <strong>Get Free Tackle.</strong> Give $10 off. Get $10 off.
+      </p>
+      <p class="text-center">
+        <a href="https://shopkarls.com/refer-a-friend?utm_medium=email&amp;utm_source=tackletracker">Learn more</a>
+      </p>
+    </columns>
+  </row>
+  <row>
+    <columns>
+      <a href="https://mysterytacklebox.com/?utm_medium=email&amp;utm_source=tackletracker">
+        <img src="http://cdn.mcauto-images-production.sendgrid.net/11c240357b503463/b495f26b-2a0b-4f49-8926-c7a63b96d7e8/76x85.png" alt="Mystery Tackle Box" width="36">
+      </a>
+    </columns>
+  </row>
+  <row>
+    <columns>
+      <p class="text-center">
+        <small>Mystery Tackle Box, 20 N Upper Wacker Dr., Suite 1200, Chicago, IL 60606</small>
+      </p>
+      <spacer size="64"></spacer>
+    </columns>
+  </row>
+</wrapper>

@@ -13,96 +13,53 @@
 // The following overrides are just an example. Do with them as you wish.
 // @see https://gist.github.com/aamyot/f8d323600efd4d220e7a302ec1697c87
 
-.container {
-  width: 100% !important;
-  max-width: $global-width !important;
+.logo {
+  height: auto !important;
+  width: 294px !important;
 }
 
-center {
-  width: auto !important;
-  min-width: auto !important;
-}
-
-.order-details {
-  width: 175px !important;
-}
-
-.header .container,
-.footer .container {
-  .columns {
-    padding-left: 0;
-    padding-right: 0;
-  }
-}
-
-h4 {
-  a {
-    text-decoration: underline;
-  }
-}
-
-a {
-  font-family: inherit;
-}
-
-.social {
-  img {
-    height: 33px;
-  }
-}
-
-.legal {
-  font-size: 8px;
-  font-weight: bold;
-  text-align: center;
-  letter-spacing: 0.5px;
-  line-height: 16px;
+h3 {
+  letter-spacing: 1px;
   text-transform: uppercase;
 }
 
-// The following overrides are just an example. They were pulled from the Custom
-// Styles field defaults in Contentful. Do with them as you wish.
-
-.body {
-  background-color: #00594f !important;
+.subtitle {
+  color: #8E8C83;
 }
 
-h3, h4, p, a, span {
-  color: #FBFAF7 !important;
+.main .separator {
+  background-color: #DCD7C9 !important;
+  border: 0;
+  border-top: 1px solid #DCD7C9;
+  display: block;
+  height: 1px;
 }
 
-.container {
-  background-color: #00594f !important;
-}
-
-.main,
-.main .container {
-  background-color: #FEFEFE !important;
-}
-
-.main p,
-.main .container p {
-  color: #0A0A0A !important;
-}
-
-.main h4,
-.main .container h4 {
-  color: #00594f !important;
-}
-
-.logo {
-  height: 44px !important;
+.img-block {
+  padding-right: 16px;
+  width: 48px;
 }
 
 .order-summary-columns {
   padding-bottom: 0 !important;
 }
 
-.shipping-columns p {
+table p {
   margin-bottom: 0px !important;
 }
 
-.footer hr {
-  border: 1px solid #47d7ac !important;
-  border-bottom: none !important;
+.footer p {
+  color: #222 !important;
+  margin: 4px 0;
+}
+
+.footer p a {
+  color: #34634b !important;
+  text-decoration: underline;
+}
+
+.footer img {
+  height: auto;
+  margin: 0 auto;
+  width: 36px !important;
 }

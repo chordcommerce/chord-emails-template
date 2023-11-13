@@ -8,16 +8,27 @@
 
 // The following overrides are just an example. Do with them as you wish.
 // @see https://gist.github.com/aamyot/f8d323600efd4d220e7a302ec1697c87
-$global-width: 420px;
-$body-font-family: Arial, Helvetica, sans-serif;
-$button-font-weight: 500;
-$button-margin: 28px 0 0 0;
-$header-font-family: Georgia, "Times New Roman", Times, serif;
-$h3-font-size: 25px;
-$h4-font-size: 20px;
-$global-font-size: 15px;
+$body-background: #DCD7C9;
+$primary-color: #34634b;
+$global-width: 586px;
+$global-font-color: #34634b;
+$global-font-size: 14px;
+$body-font-family: Helvetica, Arial, sans-serif;
+$button-font-weight: bold;
+$button-margin: 0;
+$button-background: #d14424;
+$header-color: #d14424;
+$header-font-family: Helvetica, Arial, sans-serif;
+$header-font-weight: bold;
+$h3-font-size: 28px;
 $body-line-height: 22px;
-$global-gutter: 35px;
-$small-font-size: 15px;
+$global-gutter: 16px;
+$small-font-size: 11px;
 $small-font-color: inherit;
 $anchor-color: inherit;
+$thumbnail-border: none;
+$thumbnail-margin-bottom: 0px;
+$thumbnail-shadow: none;
+$thumbnail-shadow-hover: none;
+$thumbnail-transition: none;
+$thumbnail-radius: 0px;

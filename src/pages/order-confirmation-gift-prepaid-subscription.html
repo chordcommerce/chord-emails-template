@@ -1,5 +1,4 @@
 ---
-subject: Your State Of Shipment is On Its Way
 ship_address:
   full_name: John Doe
   firstname: John
@@ -18,22 +17,15 @@ promo_total: -$18.60
 order_total_after_store_credit: $105.40
 shipping_method: Standard shipping
 line_items:
-  - image: https://placekitten.com/48/48
-    name: A Product
-    quantity: 2
-    price: $62.00
-  - image: https://placekitten.com/48/48
-    name: Another Product
-    quantity: 1
-    price: $48.00
-first_package_tracking:
-  url: http://example.com
-trackings:
-  - url: http://example.com
-    number: 0123456789
-  - number: 9876543210
-shipped_on: 3/13/21
-shipping_message: This is an example shipping message.
+- image: https://placekitten.com/48/48
+  name: A Product
+  quantity: 2
+  price: $62.00
+- image: https://placekitten.com/48/48
+  name: Another Product
+  quantity: 1
+  price: $48.00
+is_initial_order_purchase_pre_paid_subscription: true
 ---
 
 <wrapper class="header">
@@ -52,24 +44,20 @@ shipping_message: This is an example shipping message.
   <row>
     <columns>
       <spacer size="35"></spacer>
-      <h3 class="text-center">Your order has shipped</h3>
-      <p class="subtitle text-center">Your package is on its way! Check out your order information and shipment details below.</p>
-      {{#first_package_tracking.url}}
-      <spacer size="24"></spacer>
-      <center>
-        <button href="{{first_package_tracking.url}}" class="button radius">Track your package</button>
-      </center>
-      {{/first_package_tracking.url}}
+      <h3 class="text-center">
+        Your order
+      </h3>
+      <p class="subtitle text-center">
+        {{#is_initial_order_purchase_pre_paid_subscription}}
+        Thank you for your recent order, we’re so excited for you.
+        {{/is_initial_order_purchase_pre_paid_subscription}}
+        {{#is_installment_order_pre_paid_subscription}}
+        Your gifted subscription order has been processed, we’re so excited for you.
+        {{/is_installment_order_pre_paid_subscription}}
+      </p>
       <spacer size="16"></spacer>
     </columns>
   </row>
-  {{#shipping_message}}
-  <row>
-    <columns>
-      <p class="text-center"><em>{{shipping_message}}</em></p>
-    </columns>
-  </row>
-  {{/shipping_message}}
   <row>
     <columns>
       <p><strong>Order Number:</strong> {{number}}</p>
@@ -97,8 +85,8 @@ shipping_message: This is an example shipping message.
                   <div class="description">
                     {{name}}
                     {{#options_text}} 
-                      <br/> 
-                      <em>{{options_text}}</em>
+                    <br/> 
+                    <em>{{options_text}}</em>
                     {{/options_text}}
                   </div>
                   {{/parts}}
@@ -121,15 +109,15 @@ shipping_message: This is an example shipping message.
               </tr>
             </table>
           </td>
-          {{^order_is_prepaid}}
+          {{#is_initial_order_purchase_pre_paid_subscription}}
           <td class="text-right">{{price}}</td>
-          {{/order_is_prepaid}}
+          {{/is_initial_order_purchase_pre_paid_subscription}}
         </tr>
       </table>
       <spacer size="16"></spacer>
       {{/line_items}}
+      {{#is_initial_order_purchase_pre_paid_subscription}}
       <hr class='separator'>
-      {{^order_is_prepaid}}
       <container>
         <row class='order-summary-row'>
           <columns class='order-summary-columns'>
@@ -184,10 +172,12 @@ shipping_message: This is an example shipping message.
           </columns>
         </row>
       </container>
-      <hr class='separator' />
-      {{/order_is_prepaid}}
+      <hr class='separator'/>
+      {{/is_initial_order_purchase_pre_paid_subscription}}
       <spacer size="15"></spacer>
+      {{#is_installment_order_pre_paid_subscription}}
       <container>
+        <hr class='separator'/>
         <row>
           <columns class='shipping-columns'>
             <p><b>Shipping to:</b></p>
@@ -202,30 +192,62 @@ shipping_message: This is an example shipping message.
               {{ship_address.zipcode}}
             </p>
           </columns>
+        </row>
+        <row>
           <columns class='shipping-columns'>
-            <p><b>Shipping method:</b></p>
+            <p><b>Shipping method</b></p>
             <p>{{shipping_method}}</p>
           </columns>
         </row>
       </container>
+      {{/is_installment_order_pre_paid_subscription}}
       <container>
         <row>
-          <columns class="shipping-columns">
-            <p><strong>Tracking Number(s):</strong></p>
-            {{#trackings}}
-            {{#url}}
-            <a href="{{url}}">{{number}}</a>
-            {{/url}}
-            {{^url}}
-            {{number}}
-            {{/url}}
-            {{/trackings}}
-          </columns>
-          <columns class="shipping-columns">
-            <p><strong>Shipped On:</strong></p>
-            <p>{{shipped_on}}</p>
+          <columns class='shipping-columns'>
+            <p><b>Payment Info</b></p>
+            {{#payment_information}}
+            {{#is_initial_order_purchase_pre_paid_subscription}}
+            <p>{{cc_type}} (••••••••••••{{cc_last_digits}})</p>
+            {{/is_initial_order_purchase_pre_paid_subscription}}
+            {{/payment_information}}
+            {{#is_installment_order_pre_paid_subscription}}
+            <p><em>Prepaid</em></p>
+            <hr class='separator' />
+            {{/is_installment_order_pre_paid_subscription}}
           </columns>
         </row>
+        <spacer size="10"></spacer>
+        {{#is_installment_order_pre_paid_subscription}}
+        <row>
+          <h6 class="text-center">
+            <em>This confirms that an installment order from a subscription that has been prepaid and gifted to you has been processed.</em>
+          </h6>
+        </row>
+        <row>
+          <p class="text-center"><b>From {{order_pre_paid_subscription.purchaser}}:                              {{order_pre_paid_subscription.gift_message}} </b></p>
+        </row>
+        {{/is_installment_order_pre_paid_subscription}}
+        {{#is_initial_order_purchase_pre_paid_subscription}}
+        <row>
+          <h6 class="text-center">
+            <em>This confirms your prepaid gift subscription purchase for your recipient: {{order_pre_paid_subscription.recipient_fullname}}</em>
+          </h6>
+        </row>
+        <row>
+          <columns class='shipping-columns'>
+            <p><b>Gift Subscription Details:</b></p>
+            <p><b>No. of Installments:</b>                                                       {{order_pre_paid_subscription.installment_count}}<br/>
+              <b>Interval:</b>                                                                  {{order_pre_paid_subscription.interval}}<br/>
+              <b>Start Date:</b> {{order_pre_paid_subscription.actionable_date}}<br/>
+              <b> Recipient Email:</b>                                                          {{order_pre_paid_subscription.recipient_email}}<br/>
+              <b> Gift Message:</b>                                                           {{order_pre_paid_subscription.gift_message}}<br/>
+              <b>Shipping Address:</b><br/>
+              {{order_pre_paid_subscription.recipient_shipping_address.full_name}}<br/>
+              {{order_pre_paid_subscription.recipient_shipping_address.address1}}  <br/>{{order_pre_paid_subscription.recipient_shipping_address.city}}<br/> {{order_pre_paid_subscription.recipient_shipping_address.state}}<br/>                 {{order_pre_paid_subscription.recipient_shipping_address.zipcode}}
+            </p>
+          </columns>
+        </row>
+        {{/is_initial_order_purchase_pre_paid_subscription}}
       </container>
     </columns>
   </row>

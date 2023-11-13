@@ -7,45 +7,28 @@ updated_order_total: $82.00
 ---
 
 <wrapper class="header">
-  <container>
-    <row>
-      <columns>
-        <center>
-          <img class="logo" src="https://your.site.com/your-logo.png" />
-        </center>
-        <spacer size="26"></spacer>
-      </columns>
-    </row>
-
-    <row>
-      <columns>
-        <h3 class="text-center">
-          We received your request and have updated your order info.
-        </h3>
-        <p class="text-center">
-          We’re sorry to hear you weren’t satisfied with your recent purchase. We’ve made the necessary adjustments and have reimbursed you for the requested item(s), detailed below:
-        </p>
-      </columns>
-    </row>
-  </container>
+  <row>
+    <columns>
+      <spacer size="26"></spacer>
+      <center>
+        <img class="logo" src="http://cdn.mcauto-images-production.sendgrid.net/11c240357b503463/ce908add-ba8e-4d5b-a89c-a7d3554b6116/382x85.png" alt="Mystery Tackle Box">
+      </center>
+      <spacer size="8"></spacer>
+    </columns>
+  </row>
 </wrapper>
-
-<spacer size="26"></spacer>
 
 <container class="main">
   <row>
     <columns>
       <spacer size="35"></spacer>
-      <h4 class="text-center"><em>Your Order</em></h4>
+      <h3 class="text-center">Your order was reimbursed</h3>
     </columns>
   </row>
   <row>
     <columns>
       <p><strong>Order Number:</strong> {{number}}</p>
-
       <hr class='separator'>
-      <spacer size='20'></spacer>
-
       <container>
         <row class='order-summary-row'>
           <columns class='order-summary-columns'>
@@ -55,7 +38,6 @@ updated_order_total: $82.00
             <p class='text-right'>{{order_total}}</p>
           </columns>
         </row>
-
         <row class='order-summary-row'>
           <columns class='order-summary-columns'>
             <p>Refund Total</p>
@@ -64,7 +46,6 @@ updated_order_total: $82.00
             <p class='text-right'>{{reimbursement_total}}</p>
           </columns>
         </row>
-
         <row class='order-summary-row'>
           <columns class='order-summary-columns'>
             <p><strong>Updated Order Total</strong></p>
@@ -73,78 +54,54 @@ updated_order_total: $82.00
             <p class='text-right'>{{updated_order_total}}</p>
           </columns>
         </row>
+        <row class='order-summary-row'>
+          <hr class='separator'>
+          <columns class='order-summary-columns'>
+            <p><strong>Payment Info</strong></p>
+          </columns>
+        </row>
+        <row class='order-summary-row'>
+          <columns class='order-summary-columns'>
+            {{#payment_information}} 
+            <p> <img class="cc_icon" src="https://dtp73dbhq5jto.cloudfront.net/{{cc_type}}.png" /> {{cc_type}} (••••••••••••{{cc_last_digits}}) </p>
+            {{/payment_information}}
+          </columns>
+        </row>
       </container>
-    </row>
-  </columns>
+    </columns>
+  </row>
+  <row>
+    <columns>
+      <p>Your refund will be applied via your method of payment in 1-3 business days. If you need anything else, we're always here for you at <a href="mailto:support@mysterytacklebox.com">support@mysterytacklebox.com.</a></p>
+    </columns>
+  </row>
 </container>
 
-  <wrapper class="footer">
-    <container>
-      <row>
-        <columns>
-          <spacer size="50"></spacer>
-          <p class='text-center'>Your refund will be applied via your method of payment in 1-3 business days. If you need anything else, we're always here for you at hello@example.com.</p>
-        </columns>
-      </row>
-      <hr />
-    </container>
-  </wrapper>
-
 <wrapper class="footer">
-  <container>
-    <row>
-      <columns>
-        <spacer size="50"></spacer>
-        <h3 class="text-center">Lorem ipsum dolor sit amet.</h3>
-        <spacer size="40"></spacer>
-        <hr />
-      </columns>
-    </row>
-
-    <row>
-      <columns>
-        <h4 class="text-center">
-          <small>Something not right with your order?<br />
-            <em>Reach out to us at <a href="mailto:hello@example.com">hello@example.com</a>.</em>
-          </small>
-        </h4>
-      </columns>
-    </row>
-
-    <row>
-      <columns>
-        <center>
-          <menu class="social">
-            <item href="https://www.facebook.com" target="_blank">
-              <img src="facebook.png" />
-            </item>
-            <item href="https://www.instagram.com" target="_blank">
-              <img src="instagram.png" />
-            </item>
-            <item href="https://www.pinterest.com" target="_blank">
-              <img src="pinterest.png" />
-            </item>
-          </menu>
-        </center>
-      </columns>
-    </row>
-
-    <row>
-      <columns>
-        <center>
-          <div class="legal">
-            <span>
-              <a href="https://your.site.com/privacy-policy">Privacy Policy</a>
-            </span>
-            <span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
-            <span>
-              <a href="https://your.site.com/terms">Terms of Use</a>
-            </span>
-            <span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
-            <span>&copy; 2020</span>
-      </div>
-    </center>
-  </columns>
-</row>
-  </container>
+  <row>
+    <columns>
+      <spacer size="32"></spacer>
+      <p class="text-center">
+        <strong>Get Free Tackle.</strong> Give $10 off. Get $10 off.
+      </p>
+      <p class="text-center">
+        <a href="https://shopkarls.com/refer-a-friend?utm_medium=email&amp;utm_source=tackletracker">Learn more</a>
+      </p>
+    </columns>
+  </row>
+  <row>
+    <columns>
+      <a href="https://mysterytacklebox.com/?utm_medium=email&amp;utm_source=tackletracker">
+        <img src="http://cdn.mcauto-images-production.sendgrid.net/11c240357b503463/b495f26b-2a0b-4f49-8926-c7a63b96d7e8/76x85.png" alt="Mystery Tackle Box" width="36">
+      </a>
+    </columns>
+  </row>
+  <row>
+    <columns>
+      <p class="text-center">
+        <small>Mystery Tackle Box, 20 N Upper Wacker Dr., Suite 1200, Chicago, IL 60606</small>
+      </p>
+      <spacer size="64"></spacer>
+    </columns>
+  </row>
 </wrapper>

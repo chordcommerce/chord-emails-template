@@ -1,0 +1,491 @@
+---
+number: ORDER-0123456789
+non_cross_sold_line_items:
+  - image: https://placekitten.com/48/48
+    name: A Product
+    quantity: 2
+    price: $62.00
+  - image: https://placekitten.com/48/48
+    name: Another Product
+    quantity: 1
+    price: $48.00
+partially_cross_sold_line_items:
+  - image: https://placekitten.com/48/48
+    name: A Product
+    quantity: 2
+    price: $62.00
+  - image: https://placekitten.com/48/48
+    name: Another Product
+    quantity: 1
+    price: $48.00
+fully_cross_sold_line_items:
+  - image: https://placekitten.com/48/48
+    name: A Product
+    quantity: 2
+    price: $62.00
+  - image: https://placekitten.com/48/48
+    name: Another Product
+    quantity: 1
+    price: $48.00
+---
+
+<wrapper class="header">
+  <row>
+    <columns>
+      <spacer size="26"></spacer>
+      <center>
+        <img class="logo" src="http://cdn.mcauto-images-production.sendgrid.net/11c240357b503463/ce908add-ba8e-4d5b-a89c-a7d3554b6116/382x85.png" alt="Mystery Tackle Box">
+      </center>
+      <spacer size="8"></spacer>
+    </columns>
+  </row>
+</wrapper>
+
+<container class="main">
+  <row>
+    <columns>
+      <row>
+        <columns>
+          <spacer size="35"></spacer>
+          <h3 class="text-center">Your order has been updated</h3>
+          <p class="subtitle text-center">We've updated your order to include your recently purchased items.</p>
+          <spacer size="8"></spacer>
+        </columns>
+      </row>
+    </columns>
+  </row>
+  <row>
+    <columns>
+      <p><strong>Order Number: {{number}}</strong></p>
+      <hr class='separator'>
+      <p><em>Items purchased at checkout: </em></p>
+      <spacer size="8"></spacer>
+      {{#non_cross_sold_line_items}}
+      <table>
+        <tr>
+          <td class="img-block">
+            <img src="{{image}}" class="thumbnail">
+          </td>
+          <td>
+            <table class="order-details">
+              <tr>
+                <td>
+                  <strong>{{name}}</strong>
+                </td>
+              </tr>
+              {{#options_text}}
+              <tr>
+                <td>
+                  <em>{{options_text}}</em>
+                </td>
+              </tr>
+              {{/options_text}}
+              {{#is_bundle}}
+              <tr>
+                <td>
+                  {{#parts}}
+                  <div class="description">
+                    {{name}}
+                    {{#options_text}}
+                    <br />
+                    <em>{{options_text}}</em>
+                    {{/options_text}}
+                  </div>
+                  {{/parts}}
+                </td>
+              </tr>
+              {{/is_bundle}}
+              {{#is_subscription}}
+              <tr>
+                <td>
+                  {{#subscription_details}}
+                  <div class="description"> Auto-renew: {{interval}}
+                  </div>
+                  {{/subscription_details}}
+                </td>
+              </tr>
+              {{/is_subscription}}
+              {{#is_gift_card}}
+              <tr>
+                <td>
+                  {{#gift_cards_details}}
+                  <div class="description small-text margin-3"> Value: {{amount}}, Recipient: {{recipient_email}}
+                  </div>
+                  <div class="description small-text margin-3"> Delivery date: {{send_email_at}}
+                  </div>
+                  {{/gift_cards_details}}
+                </td>
+              </tr>
+              {{/is_gift_card}}
+              <tr>
+                <td>Qty: {{quantity}}</td>
+              </tr>
+            </table>
+          </td>
+          <td class="text-right">{{price}}</td>
+        </tr>
+      </table>
+      <spacer size="16"></spacer>
+      {{/non_cross_sold_line_items}}
+      {{#partially_cross_sold_line_items}}
+      <table>
+        <tr>
+          <td class="img-block">
+            <img src="{{image}}" class="thumbnail">
+          </td>
+          <td>
+            <table class="order-details">
+              <tr>
+                <td>
+                  <strong>{{name}}</strong>
+                </td>
+              </tr>
+              {{#options_text}}
+              <tr>
+                <td>
+                  <em>{{options_text}}</em>
+                </td>
+              </tr>
+              {{/options_text}}
+              {{#is_bundle}}
+              <tr>
+                <td>
+                  {{#parts}}
+                  <div class="description">
+                    {{name}}
+                    {{#options_text}}
+                    <br />
+                    <em>{{options_text}}</em>
+                    {{/options_text}}
+                  </div>
+                  {{/parts}}
+                </td>
+              </tr>
+              {{/is_bundle}}
+              {{#is_subscription}}
+              <tr>
+                <td>
+                  {{#subscription_details}}
+                  <div class="description"> Auto-renew: {{interval}}
+                  </div>
+                  {{/subscription_details}}
+                </td>
+              </tr>
+              {{/is_subscription}}
+              {{#is_gift_card}}
+              <tr>
+                <td>
+                  {{#gift_cards_details}}
+                  <div class="description small-text margin-3"> Value: {{amount}}, Recipient: {{recipient_email}}
+                  </div>
+                  <div class="description small-text margin-3"> Delivery date: {{send_email_at}}
+                  </div>
+                  {{/gift_cards_details}}
+                </td>
+              </tr>
+              {{/is_gift_card}}
+              <tr>
+                <td>Qty: {{non_cross_sold_quantity}}</td>
+              </tr>
+            </table>
+          </td>
+          <td class="text-right">{{price}}</td>
+        </tr>
+      </table>
+      <spacer size="16"></spacer>
+      {{/partially_cross_sold_line_items}}
+    </columns>
+  </row>
+  <row>
+    <columns>
+      <hr class='separator'>
+      <p><em>Items purchased post checkout:</em></p>
+      <spacer size="8"></spacer>
+      {{#partially_cross_sold_line_items}}
+      <table>
+        <tr>
+          <td class="img-block">
+            <img src="{{image}}" class="thumbnail">
+          </td>
+          <td>
+            <table class="order-details">
+              <tr>
+                <td>
+                  <strong>{{name}}</strong>
+                </td>
+              </tr>
+              {{#options_text}}
+              <tr>
+                <td>
+                  <em>{{options_text}}</em>
+                </td>
+              </tr>
+              {{/options_text}}
+              {{#is_bundle}}
+              <tr>
+                <td>
+                  {{#parts}}
+                  <div class="description">
+                    {{name}}
+                    {{#options_text}}
+                    <br />
+                    <em>{{options_text}}</em>
+                    {{/options_text}}
+                  </div>
+                  {{/parts}}
+                </td>
+              </tr>
+              {{/is_bundle}}
+              {{#is_subscription}}
+              <tr>
+                <td>
+                  {{#subscription_details}}
+                  <div class="description"> Auto-renew: {{interval}}
+                  </div>
+                  {{/subscription_details}}
+                </td>
+              </tr>
+              {{/is_subscription}}
+              {{#is_gift_card}}
+              <tr>
+                <td>
+                  {{#gift_cards_details}}
+                  <div class="description small-text margin-3"> Value: {{amount}}, Recipient: {{recipient_email}}
+                  </div>
+                  <div class="description small-text margin-3"> Delivery date: {{send_email_at}}
+                  </div>
+                  {{/gift_cards_details}}
+                </td>
+              </tr>
+              {{/is_gift_card}}
+              <tr>
+                <td>Qty: {{cross_sold_quantity}}</td>
+              </tr>
+            </table>
+          </td>
+          <td class="text-right">{{price}}</td>
+        </tr>
+      </table>
+      <spacer size="16"></spacer>
+      {{/partially_cross_sold_line_items}}
+      {{#fully_cross_sold_line_items}}
+      <table>
+        <tr>
+          <td class="img-block">
+            <img src="{{image}}" class="thumbnail">
+          </td>
+          <td>
+            <table class="order-details">
+              <tr>
+                <td>
+                  <strong>{{name}}</strong>
+                </td>
+              </tr>
+              {{#options_text}}
+              <tr>
+                <td>
+                  <em>{{options_text}}</em>
+                </td>
+              </tr>
+              {{/options_text}}
+              {{#is_bundle}}
+              <tr>
+                <td>
+                  {{#parts}}
+                  <div class="description">
+                    {{name}}
+                    {{#options_text}}
+                    <br />
+                    <em>{{options_text}}</em>
+                    {{/options_text}}
+                  </div>
+                  {{/parts}}
+                </td>
+              </tr>
+              {{/is_bundle}}
+              {{#is_subscription}}
+              <tr>
+                <td>
+                  {{#subscription_details}}
+                  <div class="description"> Auto-renew: {{interval}}
+                  </div>
+                  {{/subscription_details}}
+                </td>
+              </tr>
+              {{/is_subscription}}
+              {{#is_gift_card}}
+              <tr>
+                <td>
+                  {{#gift_cards_details}}
+                  <div class="description small-text margin-3"> Value: {{amount}}, Recipient: {{recipient_email}}
+                  </div>
+                  <div class="description small-text margin-3"> Delivery date: {{send_email_at}}
+                  </div>
+                  {{/gift_cards_details}}
+                </td>
+              </tr>
+              {{/is_gift_card}}
+              <tr>
+                <td>Qty: {{cross_sold_quantity }}</td>
+              </tr>
+            </table>
+          </td>
+          <td class="text-right">{{price}}</td>
+        </tr>
+      </table>
+      <spacer size="16"></spacer>
+      {{/fully_cross_sold_line_items}}
+    </columns>
+  </row>
+</container>
+<container class="main">
+  <row>
+    <columns>
+      <hr class='separator' />
+      <container>
+        <row>
+          <container>
+            <row class='order-summary-row'>
+              <columns class='order-summary-columns'>
+                <p>Subtotal</p>
+              </columns>
+              <columns class='order-summary-columns'>
+                <p class='text-right'>{{item_total}}</p>
+              </columns>
+            </row>
+            <row class='order-summary-row'>
+              <columns class='order-summary-columns'>
+                <p>Tax</p>
+              </columns>
+              <columns class='order-summary-columns'>
+                <p class='text-right'>{{tax_total}}</p>
+              </columns>
+            </row>
+            {{#promo_total}}
+            <row class='order-summary-row'>
+              <columns class='order-summary-columns'>
+                <p>Promotions</p>
+              </columns>
+              <columns class='order-summary-columns'>
+                <p class='text-right'>{{promo_total}}</p>
+              </columns>
+            </row>
+            {{/promo_total}}
+            <row class='order-summary-row'>
+              <columns class='order-summary-columns'>
+                <p>Shipping</p>
+              </columns>
+              <columns class='order-summary-columns'>
+                <p class='text-right'>{{shipment_total}}</p>
+              </columns>
+            </row>
+            {{#store_credit_applied}}
+            <row class='order-summary-row'>
+              <columns class='order-summary-columns'>
+                <p>Store Credits</p>
+              </columns>
+              <columns class='order-summary-columns'>
+                <p class='text-right'>{{store_credit_applied}}</p>
+              </columns>
+            </row>
+            {{/store_credit_applied}}
+            <row class='order-summary-row'>
+              <columns class='order-summary-columns'>
+                <p>Order Total</p>
+              </columns>
+              <columns class='order-summary-columns'>
+                <p class='text-right'>
+                  <b>{{order_total_after_store_credit}}</b>
+                </p>
+              </columns>
+            </row>
+          </container>
+          <hr class='separator' />
+          <container>
+            <row>
+              <columns class='shipping-columns'>
+                <p>
+                  <b>Shipping to:</b>
+                </p>
+                <p>
+                  {{ship_address.full_name}}
+                  <br />
+                  {{ship_address.address1}}
+                  <br />
+                  {{#ship_address.address2}}
+                  {{ship_address.address2}}
+                  <br />
+                  {{/ship_address.address2}}
+                  {{ship_address.city}}, {{ship_address.state}}
+                  {{ship_address.zipcode}}
+                </p>
+              </columns>
+              <columns class='shipping-columns'>
+                <p>
+                  <b>Shipping method</b>
+                </p>
+                <p>{{shipping_method}}</p>
+              </columns>
+            </row>
+            <row>
+              <columns class='shipping-columns'>
+                <p>
+                  <b>Billing to:</b>
+                </p>
+                <p>
+                  {{bill_address.full_name}}
+                  <br />
+                  {{bill_address.address1}}
+                  <br />
+                  {{#bill_address.address2}}
+                  {{bill_address.address2}}
+                  <br />
+                  {{/bill_address.address2}}
+                  {{bill_address.city}}, {{bill_address.state}}
+                  {{bill_address.zipcode}}
+                </p>
+              </columns>
+              <columns class='shipping-columns'>
+                <p>
+                  <b>Payment Info</b>
+                </p>
+                {{#payment_information}}
+                <p>{{cc_type}} (••••••••••••{{cc_last_digits}})</p>
+                {{/payment_information}}
+              </columns>
+            </row>
+          </container>
+        </row>
+      </container>
+    </columns>
+  </row>
+</container>
+
+<wrapper class="footer">
+  <row>
+    <columns>
+      <spacer size="32"></spacer>
+      <p class="text-center">
+        <strong>Get Free Tackle.</strong> Give $10 off. Get $10 off.
+      </p>
+      <p class="text-center">
+        <a href="https://shopkarls.com/refer-a-friend?utm_medium=email&amp;utm_source=tackletracker">Learn more</a>
+      </p>
+    </columns>
+  </row>
+  <row>
+    <columns>
+      <a href="https://mysterytacklebox.com/?utm_medium=email&amp;utm_source=tackletracker">
+        <img src="http://cdn.mcauto-images-production.sendgrid.net/11c240357b503463/b495f26b-2a0b-4f49-8926-c7a63b96d7e8/76x85.png" alt="Mystery Tackle Box" width="36">
+      </a>
+    </columns>
+  </row>
+  <row>
+    <columns>
+      <p class="text-center">
+        <small>Mystery Tackle Box, 20 N Upper Wacker Dr., Suite 1200, Chicago, IL 60606</small>
+      </p>
+      <spacer size="64"></spacer>
+    </columns>
+  </row>
+</wrapper>
