@@ -12,8 +12,12 @@ import path     from 'path';
 import merge    from 'merge-stream';
 import beep     from 'beepbeep';
 import colors   from 'colors';
+import dartSass from 'gulp-sass';
+import sassCompiler from 'sass';
 
 const $ = plugins();
+
+const sassPlugin = dartSass(sassCompiler);
 
 // Look for the --production flag
 const PRODUCTION = !!(yargs.argv.production);
@@ -72,10 +76,10 @@ function resetPages(done) {
 function sass() {
   return gulp.src('src/assets/scss/app.scss')
     .pipe($.if(!PRODUCTION, $.sourcemaps.init()))
-    .pipe($.sass({
+    .pipe(sassPlugin({
       includePaths: ['node_modules/foundation-emails/scss'],
-      outputStyle: $.if(PRODUCTION, 'compressed')
-    }).on('error', $.sass.logError))
+      outputStyle: $.if(PRODUCTION, 'compressed', 'expanded')
+    }).on('error', sassPlugin.logError))
     .pipe($.if(PRODUCTION, $.uncss(
       {
         html: ['dist/**/*.html']
