@@ -1,3 +1,6 @@
+**DNM!** __This branch is intended to help build Catch Co's MTB emails. It
+should not be merged into `main`.__ -GC
+
 # Chord Email Templates
 
 Special thanks to [Gus Childs](https://github.com/guschilds) for creating this awesome tool.  The original code can be found [here](https://github.com/guschilds/chord-emails-template).
