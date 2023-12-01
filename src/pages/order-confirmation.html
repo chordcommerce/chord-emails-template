@@ -54,6 +54,8 @@ line_items:
     <columns>
       <spacer size="35"></spacer>
       <h3 class="text-center">Your order is confirmed</h3>
+      <spacer size="10"></spacer>
+      <p class="subtitle">Thank you for your order. You are enrolled in a fully-paid 1-month subscription plan. At the end of this period, your plan will automatically renew at the same length and your default payment method will be charged for the renewal amount of {{item_total}} (plus applicable tax). You may cancel at any time and avoid any subsequent renewal by contacting Mystery Tackle Box, but the remaining length of the subscription plan then in effect is non-refundable.</p>
     </columns>
   </row>
   <row>
@@ -190,14 +192,14 @@ line_items:
           <columns class='shipping-columns'>
             <p><b>Shipping to:</b></p>
             <p>
-            {{ship_address.full_name}}<br/>
-            {{ship_address.address1}}<br/>
-            {{#ship_address.address2}}
+              {{ship_address.full_name}}<br/>
+              {{ship_address.address1}}<br/>
+              {{#ship_address.address2}}
               {{ship_address.address2}}<br/>
-            {{/ship_address.address2}}
-            {{ship_address.city}},
-            {{ship_address.state}}
-            {{ship_address.zipcode}}
+              {{/ship_address.address2}}
+              {{ship_address.city}},
+              {{ship_address.state}}
+              {{ship_address.zipcode}}
             </p>
           </columns>
           <columns class='shipping-columns'>

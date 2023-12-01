@@ -8,6 +8,15 @@ ship_address:
   city: San Francisco
   state: CA
   zipcode: 12345
+bill_address:
+  full_name: John Doe
+  firstname: John
+  lastname: Doe
+  address1: 12345 Street Rd
+  address2: Unit 1
+  city: San Francisco
+  state: CA
+  zipcode: 12345
 number: ORDER-0123456789
 item_total: $124.00
 tax_total: $0.00
@@ -26,6 +35,11 @@ line_items:
   quantity: 1
   price: $48.00
 is_initial_order_purchase_pre_paid_subscription: true
+is_installment_order_pre_paid_subscription: false
+pre_paid_renewal_purchase: false
+order_is_prepaid: true
+order_pre_paid_subscription:
+  installment_count: 3
 ---
 
 <wrapper class="header">
@@ -44,18 +58,11 @@ is_initial_order_purchase_pre_paid_subscription: true
   <row>
     <columns>
       <spacer size="35"></spacer>
-      <h3 class="text-center">
-        Your order
-      </h3>
-      <p class="subtitle text-center">
-        {{#is_initial_order_purchase_pre_paid_subscription}}
-        Thank you for your recent order, we’re so excited for you.
-        {{/is_initial_order_purchase_pre_paid_subscription}}
-        {{#is_installment_order_pre_paid_subscription}}
-        Your gifted subscription order has been processed, we’re so excited for you.
-        {{/is_installment_order_pre_paid_subscription}}
-      </p>
-      <spacer size="16"></spacer>
+      <h3 class="text-center">Your order is confirmed</h3>
+      {{#is_initial_order_purchase_pre_paid_subscription}}
+      <spacer size="10"></spacer>
+      <p class="subtitle">Thank you for your order. You are now enrolled in a fully-paid {{order_pre_paid_subscription.installment_count}}-month subscription plan. At the end of this period, your plan will automatically renew at the same length and your default payment method will be charged for the renewal amount of {{item_total}} (plus applicable tax). You may cancel at any time and avoid any subsequent renewal by contacting Mystery Tackle Box, but the remaining length of the subscription plan then in effect is non-refundable.</p>
+      {{/is_initial_order_purchase_pre_paid_subscription}}
     </columns>
   </row>
   <row>
@@ -112,6 +119,9 @@ is_initial_order_purchase_pre_paid_subscription: true
           {{#is_initial_order_purchase_pre_paid_subscription}}
           <td class="text-right">{{price}}</td>
           {{/is_initial_order_purchase_pre_paid_subscription}}
+          {{#pre_paid_renewal_purchase}}
+          <td class="text-right">{{price}}</td>
+          {{/pre_paid_renewal_purchase}}
         </tr>
       </table>
       <spacer size="16"></spacer>
@@ -174,10 +184,65 @@ is_initial_order_purchase_pre_paid_subscription: true
       </container>
       <hr class='separator'/>
       {{/is_initial_order_purchase_pre_paid_subscription}}
-      <spacer size="15"></spacer>
-      {{#is_installment_order_pre_paid_subscription}}
+      {{#pre_paid_renewal_purchase}}
+      <hr class='separator'>
       <container>
-        <hr class='separator'/>
+        <row class='order-summary-row'>
+          <columns class='order-summary-columns'>
+            <p>Subtotal</</p>
+          </columns>
+          <columns class='order-summary-columns'>
+            <p class='text-right'>{{item_total}}</p>
+          </columns>
+        </row>
+        <row class='order-summary-row'>
+          <columns class='order-summary-columns'>
+            <p>Tax</p>
+          </columns>
+          <columns class='order-summary-columns'>
+            <p class='text-right'>{{tax_total}}</p>
+          </columns>
+        </row>
+        {{#promo_total}}
+        <row class='order-summary-row'>
+          <columns class='order-summary-columns'>
+            <p>Promotions</p>
+          </columns>
+          <columns class='order-summary-columns'>
+            <p class='text-right'>{{promo_total}}</p>
+          </columns>
+        </row>
+        {{/promo_total}}
+        <row class='order-summary-row'>
+          <columns class='order-summary-columns'>
+            <p>Shipping</p>
+          </columns>
+          <columns class='order-summary-columns'>
+            <p class='text-right'>{{shipment_total}}</p>
+          </columns>
+        </row>
+        {{#store_credit_applied}}
+        <row class='order-summary-row'>
+          <columns class='order-summary-columns'>
+            <p>Store Credits</p>
+          </columns>
+          <columns class='order-summary-columns'>
+            <p class='text-right'>{{store_credit_applied}}</p>
+          </columns>
+        </row>
+        {{/store_credit_applied}}
+        <row class='order-summary-row'>
+          <columns class='order-summary-columns'>
+            <p>Order Total</p>
+          </columns>
+          <columns class='order-summary-columns'>
+            <p class='text-right'><b>{{order_total_after_store_credit}}</b></p>
+          </columns>
+        </row>
+      </container>
+      <hr class='separator'/>
+      {{/pre_paid_renewal_purchase}}
+      <container>
         <row>
           <columns class='shipping-columns'>
             <p><b>Shipping to:</b></p>
@@ -192,62 +257,57 @@ is_initial_order_purchase_pre_paid_subscription: true
               {{ship_address.zipcode}}
             </p>
           </columns>
-        </row>
-        <row>
           <columns class='shipping-columns'>
             <p><b>Shipping method</b></p>
             <p>{{shipping_method}}</p>
           </columns>
         </row>
-      </container>
-      {{/is_installment_order_pre_paid_subscription}}
-      <container>
+        {{#is_initial_order_purchase_pre_paid_subscription}}
         <row>
+          <columns class='shipping-columns'>
+            <p><b>Billing to:</b></p>
+            <p>
+            {{bill_address.full_name}}<br/>
+            {{bill_address.address1}}<br/>
+            {{#bill_address.address2}}
+              {{bill_address.address2}}<br/>
+            {{/bill_address.address2}}
+            {{bill_address.city}},
+            {{bill_address.state}}
+            {{bill_address.zipcode}}
+            </p>
+          </columns>
           <columns class='shipping-columns'>
             <p><b>Payment Info</b></p>
             {{#payment_information}}
-            {{#is_initial_order_purchase_pre_paid_subscription}}
-            <p>{{cc_type}} (••••••••••••{{cc_last_digits}})</p>
-            {{/is_initial_order_purchase_pre_paid_subscription}}
+              <p>{{cc_type}} (••••••••••••{{cc_last_digits}})</p>
             {{/payment_information}}
-            {{#is_installment_order_pre_paid_subscription}}
-            <p><em>Prepaid</em></p>
-            <hr class='separator' />
-            {{/is_installment_order_pre_paid_subscription}}
-          </columns>
-        </row>
-        <spacer size="10"></spacer>
-        {{#is_installment_order_pre_paid_subscription}}
-        <row>
-          <h6 class="text-center">
-            <em>This confirms that an installment order from a subscription that has been prepaid and gifted to you has been processed.</em>
-          </h6>
-        </row>
-        <row>
-          <p class="text-center"><b>From {{order_pre_paid_subscription.purchaser}}:                              {{order_pre_paid_subscription.gift_message}} </b></p>
-        </row>
-        {{/is_installment_order_pre_paid_subscription}}
-        {{#is_initial_order_purchase_pre_paid_subscription}}
-        <row>
-          <h6 class="text-center">
-            <em>This confirms your prepaid gift subscription purchase for your recipient: {{order_pre_paid_subscription.recipient_fullname}}</em>
-          </h6>
-        </row>
-        <row>
-          <columns class='shipping-columns'>
-            <p><b>Gift Subscription Details:</b></p>
-            <p><b>No. of Installments:</b>                                                       {{order_pre_paid_subscription.installment_count}}<br/>
-              <b>Interval:</b>                                                                  {{order_pre_paid_subscription.interval}}<br/>
-              <b>Start Date:</b> {{order_pre_paid_subscription.actionable_date}}<br/>
-              <b> Recipient Email:</b>                                                          {{order_pre_paid_subscription.recipient_email}}<br/>
-              <b> Gift Message:</b>                                                           {{order_pre_paid_subscription.gift_message}}<br/>
-              <b>Shipping Address:</b><br/>
-              {{order_pre_paid_subscription.recipient_shipping_address.full_name}}<br/>
-              {{order_pre_paid_subscription.recipient_shipping_address.address1}}  <br/>{{order_pre_paid_subscription.recipient_shipping_address.city}}<br/> {{order_pre_paid_subscription.recipient_shipping_address.state}}<br/>                 {{order_pre_paid_subscription.recipient_shipping_address.zipcode}}
-            </p>
           </columns>
         </row>
         {{/is_initial_order_purchase_pre_paid_subscription}}
+        {{#pre_paid_renewal_purchase}}
+        <row>
+          <columns class='shipping-columns'>
+            <p><b>Billing to:</b></p>
+            <p>
+            {{bill_address.full_name}}<br/>
+            {{bill_address.address1}}<br/>
+            {{#bill_address.address2}}
+              {{bill_address.address2}}<br/>
+            {{/bill_address.address2}}
+            {{bill_address.city}},
+            {{bill_address.state}}
+            {{bill_address.zipcode}}
+            </p>
+          </columns>
+          <columns class='shipping-columns'>
+            <p><b>Payment Info</b></p>
+            {{#payment_information}}
+              <p>{{cc_type}} (••••••••••••{{cc_last_digits}})</p>
+            {{/payment_information}}
+          </columns>
+        </row>
+        {{/pre_paid_renewal_purchase}}
       </container>
     </columns>
   </row>
